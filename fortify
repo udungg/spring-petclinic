@@ -8,7 +8,7 @@ node {
     }
     stage('SAST') {
         fortifyClean addJVMOptions: '', buildID: 'petclinic', logFile: '', maxHeap: ''
-        fortifyTranslate addJVMOptions: '', buildID: 'petclinic', excludeList: '', logFile: '', maxHeap: '', projectScanType: fortifyMaven3(mavenOptions: 'nOptions: 'package -DskipTests -Dmaven.tes')
+        fortifyTranslate addJVMOptions: '', buildID: 'petclinic', excludeList: '', logFile: '', maxHeap: '', xHeap: '', projectScanType: fortifyMaven3(mavenOptions: 'package -DskipTests -Dmaven.test)
         fortifyRemoteScan buildID: 'petclinic', uploadSSC: [appName: 'petclinic', appVersion: '1.0']
     }
     stage('Build Container Image') {
