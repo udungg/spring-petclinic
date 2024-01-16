@@ -1,14 +1,14 @@
 node {
     def mvnHome
     stage('Preparation') { // for display purposes
-        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/udungg/petclinic.git']])
+        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/udungg/spring-petclinic.git']])
     }
     stage('compile') {
         echo "compile app"
     }
     stage('SAST') {
         fortifyClean addJVMOptions: '', buildID: 'petclinic', logFile: '', maxHeap: ''
-        fortifyTranslate addJVMOptions: '', buildID: 'petclinic', excludeList: '', logFile: '', maxHeap: '', projectScanType: fortifyMaven3(mavenOptions: 'package -DskipTests -Dmaven.test.skip=true')
+        fortifyTranslate addJVMOptions: '', buildID: 'petclinic', excludeList: '', logFile: '', maxHeap: '', projectScanType: fortifyMaven3(mavenOptions: '')
         fortifyRemoteScan buildID: 'petclinic', uploadSSC: [appName: 'petclinic', appVersion: '1.0']
     }
     stage('Build Container Image') {
